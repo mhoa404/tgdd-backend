@@ -1,0 +1,34 @@
+version: "3.9"
+
+services:
+  tgdd-db:
+    image: postgres:15
+    container_name: tgdd-db
+    restart: always
+    environment:
+      POSTGRES_USER: tgdd
+      POSTGRES_PASSWORD: tgdd123
+      POSTGRES_DB: tgdd_db
+    ports:
+      - "5433:5432"
+    volumes:
+      - tgdd_data:/var/lib/postgresql/data
+
+  tgdd-backend:
+    build: .
+    container_name: tgdd-backend
+    restart: always
+    depends_on:
+      - tgdd-db
+    ports:
+      - "5050:5050"
+    environment:
+      DB_HOST: tgdd-db
+      DB_USER: tgdd
+      DB_PASS: tgdd123
+      DB_NAME: tgdd_db
+      JWT_SECRET: your_super_secret_key_here
+      GEMINI_API_KEY: AIzaSyDrHsxoWuFMHfYBp4IA7TH-n04WlCyHfLc
+
+volumes:
+  tgdd_data:
