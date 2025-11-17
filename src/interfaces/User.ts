@@ -7,10 +7,9 @@ export interface User {
     phone?: string;
     address?: string;
     birth_date?: string;
-    gender?: 'male' | 'female' | 'other';
+    gender?: "male" | "female" | "other";
     avatar?: string;
     role?: string;
     created_at?: Date;
     updated_at?: Date;
 }
-

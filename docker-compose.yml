@@ -5,10 +5,12 @@ services:
     image: postgres:15
     container_name: tgdd-db
     restart: always
+    env_file:
+      - .env
     environment:
-      POSTGRES_USER: tgdd
-      POSTGRES_PASSWORD: tgdd123
-      POSTGRES_DB: tgdd_db
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASS}
+      POSTGRES_DB: ${DB_NAME}
     ports:
       - "5433:5432"
     volumes:
@@ -21,14 +23,16 @@ services:
     depends_on:
       - tgdd-db
     ports:
-      - "5050:5050"
+      - "5050:${PORT}"
+    env_file:
+      - .env
     environment:
-      DB_HOST: tgdd-db
-      DB_USER: tgdd
-      DB_PASS: tgdd123
-      DB_NAME: tgdd_db
-      JWT_SECRET: your_super_secret_key_here
-      GEMINI_API_KEY: AIzaSyDrHsxoWuFMHfYBp4IA7TH-n04WlCyHfLc
+      DB_HOST: ${DB_HOST}
+      DB_USER: ${DB_USER}
+      DB_PASS: ${DB_PASS}
+      DB_NAME: ${DB_NAME}
+      JWT_SECRET: ${JWT_SECRET}
+      GEMINI_API_KEY: ${GEMINI_API_KEY}
 
 volumes:
   tgdd_data:

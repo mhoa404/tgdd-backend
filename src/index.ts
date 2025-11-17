@@ -11,8 +11,9 @@ import notificationsRoutes from './routes/notifications';
 import walletRoutes from './routes/wallet';
 import adminRoutes from './routes/admin';
 import path from 'path';
+
 /*------------------------------------
-Dotnev
+Dotenv
 --------------------------------------*/
 dotenv.config();
 
@@ -38,29 +39,21 @@ app.use("/api/support", supportRouter);
 app.use('/api/notifications', notificationsRoutes);
 app.use('/api/wallet', walletRoutes);
 app.use('/api/admin', adminRoutes);
+
 /*------------------------------------
-Start Servers
+Start Server
 --------------------------------------*/
 app.listen(PORT, () => {
     console.log(`Server is listening on port ${PORT}`);
 });
 
 /*------------------------------------
-Check connect Database
+Check PostgreSQL connection
 --------------------------------------*/
-database.getConnection()
-    .then((connection) => {
+database.query('SELECT 1')
+    .then(() => {
         console.log('Database connected successfully!');
-        connection.release();
     })
     .catch((err) => {
         console.error('Database connection failed:', err);
     });
-
-
-
-
-
-
-
-
