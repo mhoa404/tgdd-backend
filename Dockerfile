@@ -2,13 +2,18 @@ FROM node:18-alpine
 
 WORKDIR /app
 
+# Copy package files
 COPY package*.json ./
+
+# Install dependencies
 RUN npm install
 
-COPY . .
+# Install ts-node globally (bắt buộc cho runtime TS)
+RUN npm install -g ts-node typescript
 
-RUN npm run build
+# Copy toàn bộ source
+COPY . .
 
 EXPOSE 5050
 
-CMD ["node", "dist/index.js"]
+CMD ["npm", "start"]
