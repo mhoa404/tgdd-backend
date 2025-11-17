@@ -48,8 +48,8 @@ export default {
 
     const result = await pool.query(
       `UPDATE users 
-         SET first_name = $1, last_name = $2, email = $3, phone = $4, 
-             address = $5, birth_date = $6, gender = $7, avatar = $8
+       SET first_name = $1, last_name = $2, email = $3, phone = $4,
+           address = $5, birth_date = $6, gender = $7, avatar = $8
        WHERE id = $9
        RETURNING *`,
       [
@@ -72,7 +72,7 @@ export default {
     const user = await this.findById(userId);
     if (!user) return false;
 
-    return await bcrypt.compare(password, user.password);
+    return bcrypt.compare(password, user.password);
   },
 
   async changePassword(userId: number, newPassword: string): Promise<boolean> {
